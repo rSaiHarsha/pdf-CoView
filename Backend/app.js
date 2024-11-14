@@ -14,7 +14,8 @@ app.use("/files", express.static("files"));
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server });
 
-const mongoUrl = "mongodb://localhost:27017/pdf-viewer";
+// const mongoUrl = "mongodb://localhost:27017/pdf-viewer";
+const mongoUrl = "mongodb+srv://saiharshatech:OdvTv6ex3wWH17wX@cluster0.md683vl.mongodb.net/pdf-viewer";
 mongoose
   .connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("Connected to MongoDB"))
