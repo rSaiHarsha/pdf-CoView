@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { pdfjs } from "react-pdf";
-import PdfComp from "./PdfComp";
+import { useNavigate } from "react-router-dom";
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.js",
   import.meta.url
 ).toString();
 
-function PdfUpload() {  // Rename this function to start with an uppercase letter
+function PdfUpload() {
   const [title, setTitle] = useState("");
   const [file, setFile] = useState(null);
   const [allImage, setAllImage] = useState([]);
-  const [pdfFile, setPdfFile] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getPdf();
@@ -21,7 +21,6 @@ function PdfUpload() {  // Rename this function to start with an uppercase lette
   const getPdf = async () => {
     try {
       const result = await axios.get("http://localhost:5000/get-files");
-      console.log(result.data.data);
       setAllImage(result.data.data || []);
     } catch (error) {
       console.error("Error fetching PDF files:", error);
@@ -38,7 +37,6 @@ function PdfUpload() {  // Rename this function to start with an uppercase lette
     const formData = new FormData();
     formData.append("title", title);
     formData.append("file", file);
-    console.log(title, file);
 
     try {
       const result = await axios.post(
@@ -48,7 +46,6 @@ function PdfUpload() {  // Rename this function to start with an uppercase lette
           headers: { "Content-Type": "multipart/form-data" },
         }
       );
-      console.log(result);
       if (result.data.status === "ok") {
         alert("Uploaded Successfully!!!");
         getPdf(); // Refresh the list of PDFs
@@ -62,7 +59,7 @@ function PdfUpload() {  // Rename this function to start with an uppercase lette
   };
 
   const showPdf = (pdf) => {
-    setPdfFile(`http://localhost:5000/files/${pdf}`);
+    navigate("/pdf-viewer", { state: { pdfFile: `http://localhost:5000/files/${pdf}` } });
   };
 
   return (
@@ -111,8 +108,6 @@ function PdfUpload() {  // Rename this function to start with an uppercase lette
           )}
         </div>
       </div>
-
-      {pdfFile && <PdfComp pdfFile={pdfFile} />}
     </>
   );
 }
