@@ -1,18 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect, createContext, useRef } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import PdfUpload from "./components/PdfUpload";
 import PdfComp from "./components/PdfComp";
+import RoleSelection from "./components/RoleSelection";
+import "./App.css";
 
-const socket = new WebSocket("ws://localhost:5000"); // WebSocket connection to the backend
+// Create a Context for the Role
+export const RoleContext = createContext();
+
+const socket = new WebSocket("ws://localhost:5000");
 
 function App() {
-  // Send a message to the server (example function)
-  // const sendMessage = function () {
-  //   const message = JSON.stringify({ type: "client-msg", message: "this is from client" });
-  //   socket.send(message); // Send message to server
-  // };
+  const [role, setRole] = useState(null); // Track user role (admin or user)
+  const appRef = useRef(null); // Reference for the app container
 
-  // Log connection status and handle cleanup
   useEffect(() => {
     socket.onopen = () => {
       console.log("Connected to the WebSocket server");
@@ -22,28 +23,33 @@ function App() {
       console.log("Disconnected from WebSocket server");
     };
 
-    socket.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data.type === "updatePage") {
-        console.log(`Page synced to: ${data.pageNumber}`);
-      }
-    };
-
     return () => {
       socket.close();
     };
   }, []);
 
+  if (!role) {
+    return <RoleSelection setMode={setRole} />; // Render RoleSelection if no role is selected
+  }
+
+ 
+
   return (
-    <Router>
-      <div className="App">
-       
-        <Routes>
-          <Route path="/" element={<PdfUpload />} />
-          <Route path="/pdf-viewer" element={<PdfComp />} />
-        </Routes>
-      </div>
-    </Router>
+    <RoleContext.Provider value={role}> {/* Provide role to all components */}
+      <Router>
+        <div className="App" ref={appRef}>
+          <Routes>
+            <Route
+              path="/"
+              element={role === "admin" ? <PdfUpload /> : <PdfComp />}
+            />
+            <Route path="/pdf-viewer" element={<PdfComp />} />
+          </Routes>
+
+         
+        </div>
+      </Router>
+    </RoleContext.Provider>
   );
 }
 
