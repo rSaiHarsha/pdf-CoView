@@ -23,7 +23,7 @@ Before you start, ensure you have the following installed on your machine:
 ### 4 Running the Application
 1. Open your web browser and navigate to [http://localhost:3000](http://localhost:3000).
 
-<a href="https://drive.google.com/file/d/1ANCIgQDe-Rzip3tqDooJSSsphcraG7F1/view?usp=sharing" target="_blank">Follow the demo for a better understanding</a>
+<a href="https://drive.google.com/file/d/1ANCIgQDe-Rzip3tqDooJSSsphcraG7F1/view?usp=sharing" target="_blank">Follow the demo for better understanding</a>
 
 
 
