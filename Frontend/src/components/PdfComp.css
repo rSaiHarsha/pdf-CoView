@@ -1,0 +1,91 @@
+/* Container for the PDF component */
+.pdf-div {
+    padding: 50px;
+    background-color: #fff;
+    margin-top: 50%;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    max-width: 100%;
+    width: 900px;
+    text-align: center;
+    margin: 0 auto;
+  }
+  
+  /* Styling for the PDF page */
+  .pdf-div .react-pdf__Page {
+    
+    max-height: 100vh; /* Ensure the PDF fits within the height */
+    display: block;
+    margin: 0 auto; /* Center the PDF page horizontally */
+    margin-bottom: 30px;
+  }
+  
+  /* Page number text style */
+  .pdf-div .pdf-page-number {
+    font-size: 18px;
+    margin: 10px 0;
+    color: #333;
+  }
+  
+  /* Navigation buttons (admin only) */
+  .pdf-div .pdf-navigation {
+    margin-top: 20px;
+  }
+  
+  /* Primary and Success button styles */
+  .pdf-div .btn-primary,
+  .pdf-div .btn-success {
+    padding: 12px 20px;
+    font-size: 16px;
+    margin: 20px;
+    border-radius: var(--border-radius);
+    width: 150px;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .pdf-div .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .pdf-div .btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  
+  .pdf-div .btn-success {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+  }
+  
+  .pdf-div .btn-success:hover {
+    background-color: #218838;
+    border-color: #218838;
+  }
+  
+  /* Disabled button styling */
+  .pdf-div button:disabled {
+    background-color: #d6d6d6;
+    cursor: not-allowed;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .pdf-div {
+      padding: 15px;
+      width: 100%; /* Full width on small screens */
+    }
+  
+    .pdf-div .pdf-page-number {
+      font-size: 16px;
+    }
+  
+    .pdf-div .btn {
+      font-size: 14px;
+      padding: 8px 16px;
+      width: 130px;
+    }
+  }
+  
