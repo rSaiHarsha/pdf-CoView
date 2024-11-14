@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import { Document, Page } from "react-pdf";
-
+import { useLocation } from "react-router-dom";
 import pdf from "./1.pdf"; // Fallback PDF file
 
 let socket;
 
-function PdfComp({ pdfFile }) {
+function PdfComp() {
+  const location = useLocation();
+  const pdfFile = location.state?.pdfFile || pdf;
+  console.log( "link here",pdfFile)
   const [numPages, setNumPages] = useState(null);
   const [pageNumber, setPageNumber] = useState(1);
 
