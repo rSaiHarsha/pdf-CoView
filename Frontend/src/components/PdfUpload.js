@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { pdfjs } from "react-pdf";
 import { useNavigate } from "react-router-dom";
+import "./PdfUpload.css"
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.js",
@@ -57,13 +58,14 @@ function PdfUpload() {
       alert("An error occurred while uploading the file.");
     }
   };
-
+ 
   const showPdf = (pdf) => {
+    // console.log({ state: { pdfFile: `http://localhost:5000/files/${pdf}` } })
     navigate("/pdf-viewer", { state: { pdfFile: `http://localhost:5000/files/${pdf}` } });
   };
 
   return (
-    <>
+    <div className="container">
       <form className="formStyle" onSubmit={submitImage}>
         <h4>Upload PDF in React</h4>
         <br />
@@ -89,7 +91,7 @@ function PdfUpload() {
       </form>
 
       <div className="uploaded">
-        <h4>Uploaded PDFs:</h4>
+        <h4>Join Room</h4>
         <div className="output-div">
           {allImage.length === 0 ? (
             <p>No PDFs available.</p>
@@ -101,14 +103,14 @@ function PdfUpload() {
                   className="btn btn-primary"
                   onClick={() => showPdf(data.pdf)}
                 >
-                  Show PDF
+                  Join 
                 </button>
               </div>
             ))
           )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
