@@ -1,5 +1,4 @@
 
-Note: the hosted link will be shared soon. but you can run the application in your local machine.
 ### 1. Prerequisites
 Before you start, ensure you have the following installed on your machine:
 - **Node.js** (v12 or later)
